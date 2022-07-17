@@ -7,4 +7,4 @@ Este script coge un directorio con archivos de audio (los cuales fueron descarga
 3. Esperar a que se termine el cambio de nombres.
 
 ## Recomendación
-* Agregar la ruta raíz de `filenamechanger.py`.
+* Agregar la ruta raíz de `filenamechanger.py` a las variables de entorno, así se puede ejecutar en cualquier momento desde la consola.
