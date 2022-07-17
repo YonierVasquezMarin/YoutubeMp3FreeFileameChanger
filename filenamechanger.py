@@ -7,11 +7,8 @@ path = 'C:\\Users\\yonie\\Music'
 #############################################################################################
 #############################################################################################
 #############################################################################################
+#############################################################################################
 
-# Variables
-songFiles = []
-
-# Clase para cada archivo
 class SongFile:
     tmpName: str
     originalName: str
@@ -25,13 +22,24 @@ class SongFile:
 
     def changeName(self):
         if self._isMp3():
-            self.tmpName = self.tmpName.replace('ytmp3free.cc_', '')
-            self.tmpName = self.tmpName.replace('-youtubemp3free.org', '')
-            self.tmpName = self.tmpName.replace('-video', '')
-            self.tmpName = self.tmpName.replace('-official', '')
-            self.tmpName = self.tmpName.replace('-oficial', '')
-            self.tmpName = self.tmpName.replace('-music', '')
+
+            # Quitar estas palabras
+            wordsToQuit =  [
+                'ytmp3free.cc_',
+                '-youtubemp3free.org',
+                '-video',
+                '-official',
+                '-oficial',
+                '-music',
+                '-version-original',
+                '-audio'
+            ]
+            for word in wordsToQuit:
+                self.tmpName = self.tmpName.replace(word, '')
+            
+            # Reemplazar guiones por espacios
             self.tmpName = self.tmpName.replace('-', ' ')
+
             self.saveNewFilename()
 
     def saveNewFilename(self):
@@ -39,11 +47,8 @@ class SongFile:
         fullpath2 = path + '\\' + self.tmpName
         os.rename(fullpath1, fullpath2)
 
-# Por cada archivo de la lista crear un objeto SongFile y agregarlo a una lista
+# Por cada archivo de la lista crear un objeto SongFile y cambiar su nombre
 filesNameList = listdir(path)
 for fileName in filesNameList:
-    songFiles.append(SongFile(fileName))
-
-# Cambiar el nombre de cada archivo de audio de la lista
-for songFile in songFiles:
-    songFile.changeName()
+    file = SongFile(fileName)
+    file.changeName()
